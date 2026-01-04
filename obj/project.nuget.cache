@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "eO5crJ6IMxzR/w3dJ2yvkRPiS+JPPrBtOF0/xQRAeF8oXd5Sbj19mM8AUj/0D/6nHakh17mUBOXs0kGqxDGdGg==",
+  "dgSpecHash": "e88VnzXlfFs=",
   "success": true,
-  "projectFilePath": "F:\\Takneekigyanguru\\ASP.Net Code\\project2\\webapp\\webapp\\webapp.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\test\\Downloads\\dotnetcore-sms-main\\webapp\\webapp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\test\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.17\\microsoft.netcore.app.ref.8.0.17.nupkg.sha512",
+    "C:\\Users\\test\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.17\\microsoft.windowsdesktop.app.ref.8.0.17.nupkg.sha512",
+    "C:\\Users\\test\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.17\\microsoft.aspnetcore.app.ref.8.0.17.nupkg.sha512",
+    "C:\\Users\\test\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\8.0.17\\microsoft.netcore.app.host.win-x64.8.0.17.nupkg.sha512"
+  ],
   "logs": []
 }

@@ -3,15 +3,15 @@ pipeline {
 
     environment {
         // Paths
-        DOTNET_PATH   = "C:\\Program Files\\dotnet\\dotnet.exe"
-        PUBLISH_DIR   = "C:\\Jenkins\\publish"
+        DOTNET_PATH = "C:\\Program Files\\dotnet\\dotnet.exe"
+        PUBLISH_DIR = "C:\\Jenkins\\publish"
         IIS_SITE_PATH = "C:\\inetpub\\wwwroot\\MyDotNetApp"
 
         // IIS Site Name
         IIS_SITE_NAME = "MyDotNetApp"
 
         // Project file
-        PROJECT_PATH  = "webapp.csproj"
+        PROJECT_PATH = "Indotalent.csproj"
     }
 
     stages {
@@ -54,14 +54,15 @@ pipeline {
         stage('Deploy to IIS') {
             steps {
                 bat """
-                echo Stopping IIS...
-                iisreset /stop
+                %windir%\system32\inetsrv\appcmd stop apppool /apppool.name:"MyDotNetApp"
+                """
+            }
+        }
 
-                echo Deploying files...
-                robocopy "%PUBLISH_DIR%" "%IIS_SITE_PATH%" /MIR
-
-                echo Starting IIS...
-                iisreset /start
+        stage('Start IIS Site') {
+            steps {
+                bat """
+                %windir%\system32\inetsrv\appcmd start apppool /apppool.name:"MyDotNetApp"
                 """
             }
         }
@@ -69,10 +70,12 @@ pipeline {
 
     post {
         success {
-            echo "✅ Deployment to IIS completed successfully."
+            echo " ✅ Deployment to IIS completed successfully."
         }
         failure {
-            echo "❌ Deployment failed."
+            echo " ❌ Deployment failed."
         }
     }
 }
+
+

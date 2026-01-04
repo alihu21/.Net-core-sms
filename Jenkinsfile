@@ -3,15 +3,16 @@ pipeline {
 
     environment {
         // Paths
-        DOTNET_PATH = "C:\\Program Files\\dotnet\\dotnet.exe"
-        PUBLISH_DIR = "C:\\Jenkins\\publish"
+        DOTNET_PATH   = "C:\\Program Files\\dotnet\\dotnet.exe"
+        PUBLISH_DIR   = "C:\\Jenkins\\publish"
         IIS_SITE_PATH = "C:\\inetpub\\wwwroot\\MyDotNetApp"
 
-        // IIS Site Name
+        // IIS Site / App Pool Name
         IIS_SITE_NAME = "MyDotNetApp"
+        IIS_APPPOOL   = "MyDotNetApp"
 
         // Project file
-        PROJECT_PATH = "Indotalent.csproj"
+        PROJECT_PATH  = "Indotalent.csproj"
     }
 
     stages {
@@ -43,39 +44,33 @@ pipeline {
             }
         }
 
-        stage('Stop IIS Site') {
+        stage('Stop App Pool') {
             steps {
-                bat """
-                %windir%\\system32\\inetsrv\\appcmd stop site "%IIS_SITE_NAME%"
-                """
+                bat "%windir%\\system32\\inetsrv\\appcmd stop apppool /apppool.name:\"%IIS_APPPOOL%\""
             }
         }
 
         stage('Deploy to IIS') {
             steps {
                 bat """
-                %windir%\system32\inetsrv\appcmd stop apppool /apppool.name:"MyDotNetApp"
+                robocopy "%PUBLISH_DIR%" "%IIS_SITE_PATH%" /MIR
                 """
             }
         }
 
-        stage('Start IIS Site') {
+        stage('Start App Pool') {
             steps {
-                bat """
-                %windir%\system32\inetsrv\appcmd start apppool /apppool.name:"MyDotNetApp"
-                """
+                bat "%windir%\\system32\\inetsrv\\appcmd start apppool /apppool.name:\"%IIS_APPPOOL%\""
             }
         }
     }
 
     post {
         success {
-            echo " ✅ Deployment to IIS completed successfully."
+            echo "✅ Deployment to IIS completed successfully."
         }
         failure {
-            echo " ❌ Deployment failed."
+            echo "❌ Deployment failed."
         }
     }
 }
-
-

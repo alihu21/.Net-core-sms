@@ -53,7 +53,7 @@ pipeline {
         stage('Deploy to IIS') {
             steps {
                 bat """
-                robocopy "%PUBLISH_DIR%" "%IIS_SITE_PATH%" /MIR
+                xcopy "%PUBLISH_DIR%\\*" "%IIS_SITE_PATH%\\" /s /e /y /i
                 """
             }
         }

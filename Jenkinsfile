@@ -59,11 +59,18 @@ pipeline {
             }
         }
 
-        stage('Start IIS Site') {
+        stage('Deploy to IIS') {
             steps {
                 bat """
-                %windir%\\system32\\inetsrv\\appcmd start site "%IIS_SITE_NAME%"
-                """
+                echo Stopping IIS...
+                iisreset /stop
+
+                echo Deploying files...
+                robocopy "%PUBLISH_DIR%" "%IIS_SITE_PATH%" /MIR
+
+                echo Starting IIS...
+                iisreset /start
+                 """
             }
         }
     }

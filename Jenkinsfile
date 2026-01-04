@@ -12,7 +12,7 @@ pipeline {
         IIS_APPPOOL   = "MyDotNetApp"
 
         // Project file
-        PROJECT_PATH  = "Indotalent.csproj"
+        PROJECT_PATH  = "webapp.csproj"
     }
 
     stages {
